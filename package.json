@@ -1,7 +1,7 @@
 {
-  "name": "react-component-example-project",
+  "name": "wafo-tabla",
   "version": "0.1.0",
-  "description": "A minimal boilerplate for building a react component for npm, including a demo page.",
+  "description": "Datatable hecha en React como un stateless component.",
   "main": "lib/index.js",
   "scripts": {
     "dev": "concurrently \"npm run lib:watch\" \"npm run docs\"",
@@ -13,6 +13,7 @@
   "keywords": [],
   "license": "MIT",
   "peerDependencies": {
+    "prop-types": "^15.6.2",
     "react": "^15.3.0 || ^16.2.0",
     "react-dom": "^15.3.0 || ^16.2.0"
   },
@@ -34,10 +35,11 @@
     "webpack-cli": "^2.0.15",
     "webpack-dev-server": "^3.1.3"
   },
-  "author": "Markus Englund <markus.s.englund@gmail.com>",
-  "homepage": "https://github.com/yogaboll/react-npm-component-starter",
+  "author": "Wafo <jlvb93@gmail.com>",
+  "homepage": "http://gitlab.rosolutionsdev.com.mx/wafo/wafo-tabla",
   "repository": {
     "type": "git",
-    "url": "git@github.com:yogaboll/react-npm-component-starter.git"
-  }
+    "url": "git@gitlab.rosolutionsdev.com.mx:wafo/wafo-tabla.git"
+  },
+  "dependencies": {}
 }

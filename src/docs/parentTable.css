@@ -1,1 +1,33 @@
 /* TODO: Poner estilos default a la tabla como ejemplo */
+.TableParent {
+    display: flex;
+    justify-content: center;
+}
+
+.datatable-wrapper {
+    width: 50%;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td,
+.table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
