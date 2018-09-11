@@ -121,7 +121,7 @@ Datatable.defaultProps = {
 /** Componente Table */
 /** ******************************************************* */
 
-const Table = ({ columns, data, configTable, tableClass }) => {
+export const Table = ({ columns, data, configTable, tableClass }) => {
   function configHeaders() {
     return columns.map((column, index) => (
       <th key={index}>{column}</th>
