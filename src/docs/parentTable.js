@@ -1,12 +1,63 @@
 import React, { Component } from 'react';
-import Datatable from "../../lib";
+import { Datatable } from "../../lib";
 import './parentTable.css';
 
 const initialState = {
-  columns: ['Columna 1', 'Columna 2', 'Columna 3', 'Columna 4'],
-  data: [{ a: 'col 1', b: 'col 2', c: 'col 3', d: 'col 4' }, { a: 'col 1', b: 'col 2', c: 'col 3', d: 'col 4' }],
+  columns: ['Estatus', 'Cuenta', 'Descripcion', 'Tipo de cuenta', 'Compañia', 'Segmento', 'Sucursal', 'Opciones'],
+  data: [
+    {
+      "estado": 1,
+      "cuenta": "5001-001-005-083-000-009-007-0000",
+      "descripcion": "INSTALACIONES DE PROTOTIPOS",
+      "tipo_gasto": 1,
+      "compania": 2,
+      "segmento": 2,
+      "sucursal": 5,
+      "id": 11413,
+    },
+    {
+      "estado": 1,
+      "cuenta": "5001-001-005-083-000-009-004-0000",
+      "descripcion": "REPARACIONES P/ACOPIO",
+      "tipo_gasto": 1,
+      "compania": 2,
+      "segmento": 2,
+      "sucursal": 5,
+      "id": 11416,
+    },
+    {
+      "estado": 1,
+      "cuenta": "5001-001-005-083-000-009-003-0000",
+      "descripcion": "HERRAMIENTAS",
+      "tipo_gasto": 1,
+      "compania": 2,
+      "segmento": 2,
+      "sucursal": 5,
+      "id": 11417,
+    },
+    {
+      "estado": 1,
+      "cuenta": "5001-001-005-083-000-009-002-0000",
+      "descripcion": "REFACCIONES P/ACOPIO",
+      "tipo_gasto": 1,
+      "compania": 2,
+      "segmento": 2,
+      "sucursal": 5,
+      "id": 11418,
+    },
+    {
+      "estado": 1,
+      "cuenta": "5001-001-005-083-000-009-001-0000",
+      "descripcion": "INSUMOS Y MATERIALES",
+      "tipo_gasto": 1,
+      "compania": 2,
+      "segmento": 2,
+      "sucursal": 5,
+      "id": 11419,
+    }
+  ],
   tableClass: '',
-  total: 100,
+  total: 5,
   activePage: 1,
   size: 10,
   datatableClass: '',
@@ -15,31 +66,17 @@ const initialState = {
 class ParentTable extends Component {
   constructor() {
     super();
-    this.updateData = this.changeData.bind(this);
+    this.updateData = this.updateData.bind(this);
     this.paginationHandler = this.paginationHandler.bind(this);
 
     this.state = initialState;
-  }
-
-  changeData() {
-    this.setState({
-      data: [
-        { a: 'col 2-1', b: 'col 2-2', c: 'col 2-3', d: 'col 2-4' },
-        { a: 'col 2-1', b: 'col 2-2', c: 'col 2-3', d: 'col 2-4' },
-      ],
-    });
   }
 
   /** Example of a method to update data */
   updateData() {
     // get your new data here.
     // update the state to show new data or next page.
-    this.setState({
-      data: [
-        { a: 'col 2-1', b: 'col 2-2', c: 'col 2-3', d: 'col 2-4' },
-        { a: 'col 2-1', b: 'col 2-2', c: 'col 2-3', d: 'col 2-4' },
-      ],
-    });
+    /* this.setState({}); */
   }
 
   /**
@@ -76,7 +113,7 @@ class ParentTable extends Component {
     return (
       <div className="TableParent">
         <Datatable updateTable={this.updateData} paginacionEvent={this.paginationHandler}
-          total={total} activePage={activePage} size={size} tableProps={{ columns, data }} />
+          total={total} activePage={activePage} size={size} tableProps={{ columns, data }} alfabetico={(dasdas) => { this.state = dadsa;} } />
       </div>
     );
   }
