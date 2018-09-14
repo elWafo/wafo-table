@@ -5,27 +5,28 @@ import PropTypes from 'prop-types';
 /** Componente Table */
 /** ******************************************************* */
 
-const Table = ({ columns, data, configTable, tableClass }) => {
+const Table = ({ columns, data, configTable, tableClass, headerClick }) => {
   function configHeaders() {
     return columns.map((column, index) => (
-      <th key={index}>{column}</th>
+      <th key={index} onClick={() => headerClick(index)}>{column}</th>
     ));
   }
 
+  /** Creates rows taking into account configTable */
   function configRows() {
     const { columnDef, columnStyle } = configTable;
 
     const dataReady = data.map(row => (
       Object.keys(row).map((key) => {
         // Checking if there is a config function for this column.
-        if (Object.prototype.hasOwnProperty.call(columnDef, key)) {
+        if (columnDef && Object.prototype.hasOwnProperty.call(columnDef, key)) {
           // return columnDef[key](row); If you want the entire object.
           return {
             value: columnDef[key](row[key]),
-            style: columnStyle[key],
+            style: (columnStyle) ? columnStyle[key] : {},
           };
         }
-        return { value: row[key], style: columnStyle[key] };
+        return { value: row[key], style: (columnStyle) ? columnStyle[key] : {} };
       })
     ));
 
@@ -54,6 +55,7 @@ Table.propTypes = {
     columnStyle: PropTypes.any,
   }),
   tableClass: PropTypes.string,
+  headerClick: PropTypes.func,
 };
 
 /**
@@ -67,6 +69,7 @@ Table.defaultProps = {
   data: [],
   configTable: { columnDef: {}, columnStyle: {} },
   tableClass: 'table',
+  headerClick: () => {},
 };
 
 /** ******************************************************* */

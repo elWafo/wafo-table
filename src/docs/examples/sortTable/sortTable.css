@@ -1,0 +1,31 @@
+/* TODO: Poner estilos default a la localtable-wrapper como ejemplo */
+.Tabla {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Tabla .table {
+    width: 75%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+.Tabla .table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.Tabla .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.Tabla .table td,
+.Tabla .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
