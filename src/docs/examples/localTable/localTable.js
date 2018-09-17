@@ -3,7 +3,7 @@ import { LocalTable } from '../../../../lib';
 import './localTable.css';
 
 const initialState = {
-  columns: ['Estatus', 'Cuenta', 'Descripcion', 'Tipo de cuenta', 'Compañia', 'Segmento', 'Sucursal', 'Opciones'],
+  columns: ['Estatus', 'Cuenta', 'Descripcion', 'Tipo de cuenta', 'Compañia', 'Segmento', 'Fecha', 'Opciones'],
   data: [
     {
       "estado": 5,
@@ -19406,6 +19406,7 @@ class LocalTableExample extends Component {
 
   render() {
     const { columns, data } = this.state;
+
     return (
       <div className="Tabla">
         <button onClick={this.updateState}>Update table test</button>

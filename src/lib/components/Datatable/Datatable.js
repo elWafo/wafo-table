@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Datatable.css';
 
-import Table from './Table';
-
-/** ******************************************************* */
-/** Componente Datatable */
-/** ******************************************************* */
+import Table from '../Table';
 
 const Datatable = ({ tableProps, datatableClass, total, activePage, size, updateTable, paginacionEvent }) => {
   const { columns, data, configTable, tableClass } = tableProps;
-  let pages = 1; // num of pages based on total and how many items per page.
+  let pages = 1;
 
   function generatePagination() {
     pages = Math.ceil(total / size);
@@ -27,8 +23,13 @@ const Datatable = ({ tableProps, datatableClass, total, activePage, size, update
     ));
   }
 
+  function returnDisplayData() {
+    return data.slice(0, size);
+  }
+
   return (
     <div className={datatableClass}>
+      {/* controles */}
       <div className="controls">
         <form className="form-inline">
           <div className="form-group">
@@ -45,9 +46,9 @@ const Datatable = ({ tableProps, datatableClass, total, activePage, size, update
         <button type="button" className="btn btn-sm btn-light" onClick={updateTable}>Actualizar tabla</button>
       </div>
 
-      <Table columns={columns} data={data}
-        configTable={configTable} tableClass={tableClass} />
+      <Table columns={columns} data={returnDisplayData()} configTable={configTable} tableClass={tableClass} />
 
+      {/* pagination */}
       {(total > 0) &&
         (
           <div className="pagination-wrapper">
@@ -76,6 +77,7 @@ const Datatable = ({ tableProps, datatableClass, total, activePage, size, update
           </div>
         )
       }
+
     </div>
   );
 };
@@ -98,12 +100,6 @@ Datatable.propTypes = {
   paginacionEvent: PropTypes.func,
 };
 
-/**
- * configTable = {
- *   columnDef: {'key': function(): any { return 'value'; } },
- *   columnStyle: {'key': {property: 'value'} },
- * };
- */
 Datatable.defaultProps = {
   tableProps: {
     columns: [],
@@ -118,9 +114,5 @@ Datatable.defaultProps = {
   updateTable: () => { },
   paginacionEvent: () => { },
 };
-
-/** ******************************************************* */
-/** Export */
-/** ******************************************************* */
 
 export default Datatable;
