@@ -1,6 +1,6 @@
 {
   "name": "wafo-tabla",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Datatable hecha en React como un stateless component.",
   "main": "lib/index.js",
   "scripts": {
