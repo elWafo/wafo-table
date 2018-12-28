@@ -42,6 +42,10 @@ const Table = ({ columns, data, configTable, tableClass, headerClick }) => {
       </thead>
       <tbody>
         {configRows()}
+        {
+          data.length === 0
+          && <tr><td colSpan="100%" style={{ textAlign: 'center' }}>No existen registros.</td></tr>
+        }
       </tbody>
     </table>
   );
@@ -69,7 +73,7 @@ Table.defaultProps = {
   data: [],
   configTable: { columnDef: {}, columnStyle: {} },
   tableClass: 'table',
-  headerClick: () => {},
+  headerClick: () => { },
 };
 
 /** ******************************************************* */
