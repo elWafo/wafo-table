@@ -14,8 +14,8 @@
   "license": "MIT",
   "peerDependencies": {
     "prop-types": "^15.6.2",
-    "react": "^15.3.0 || ^16.2.0",
-    "react-dom": "^15.3.0 || ^16.2.0"
+    "react": "^16.7",
+    "react-dom": "^16.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.46",
