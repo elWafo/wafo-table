@@ -1,0 +1,10 @@
+{
+  "en": {
+    "table-size-label": "Entries",
+    "table-button-reload": "Reload"
+  },
+  "es": {
+    "table-size-label": "Registros",
+    "table-button-reload": "Actualizar"
+  }
+}

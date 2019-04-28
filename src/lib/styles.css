@@ -1,0 +1,14 @@
+.table-controls {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.table-controls > :first-child {
+  flex: 1;
+}
+
+.table-controls label {
+  font-size: 0.8em;
+  margin-right: .5rem;
+}
