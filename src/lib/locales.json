@@ -1,10 +1,26 @@
 {
   "en": {
     "table-size-label": "Entries",
-    "table-button-reload": "Reload"
+    "table-button-reload": "Reload",
+    "table-input-search": "Search",
+    "table-noentries": "No entries to show.",
+    "table-pagination-prev": "Previous",
+    "table-pagination-next": "Next",
+    "table-pagination-desc-1": "Showing",
+    "table-pagination-desc-2": "to",
+    "table-pagination-desc-3": "of",
+    "table-pagination-desc-4": "entries"
   },
   "es": {
     "table-size-label": "Registros",
-    "table-button-reload": "Actualizar"
+    "table-button-reload": "Actualizar",
+    "table-input-search": "Búsqueda",
+    "table-noentries": "Sin registros que mostrar.",
+    "table-pagination-prev": "Anterior",
+    "table-pagination-next": "Siguiente",
+    "table-pagination-desc-1": "Mostrando",
+    "table-pagination-desc-2": "al",
+    "table-pagination-desc-3": "de",
+    "table-pagination-desc-4": "registros"
   }
 }

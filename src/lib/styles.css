@@ -4,11 +4,33 @@
   margin-bottom: 1rem;
 }
 
-.table-controls > :first-child {
+.table-controls> :first-child {
   flex: 1;
 }
 
 .table-controls label {
   font-size: 0.8em;
   margin-right: .5rem;
+}
+
+.table-controls .form-group {
+  margin-right: .5rem;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pagination-wrapper .description {
+  font-size: 0.8em;
+  margin: 0;
+}
+
+.pagination-wrapper .pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: .25rem;
 }
