@@ -102,12 +102,26 @@ const rows = [
 
 const columns = ['Id', 'Nombre', 'Edad', 'Fecha de Nacimiento', 'Lugar de nacimiento', 'Ayylmao'];
 
+const configTable = {
+  ayylmao: {
+    def: (val) => {
+      const td = <span>{val ? 'Si' : 'No'}</span>;
+      return td;
+    },
+    style: {
+      backgroundColor: '#333',
+      color: '#fff',
+    },
+  },
+};
+
 const LocalTableExample = () => (
   <div className="localtable-example">
     <LocalTable
       columns={columns}
       rows={rows}
       locale={'en'}
+      configTable={configTable}
     />
   </div>
 );
