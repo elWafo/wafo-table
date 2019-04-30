@@ -106,6 +106,7 @@ const DataTableExample = () => {
         rows={rows}
         totalRows={totalRows}
         paginationEvent={getData}
+        locale={'es'}
       />
     </div>
   );
