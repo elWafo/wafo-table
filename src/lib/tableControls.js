@@ -6,31 +6,35 @@ import './styles.css';
 const TableControls = ({ size, onSizeChange, search, onSearchChange, updateTable, locale }) => {
   return (
     <div className="table-controls">
-      <div className="form-group">
-        <label htmlFor="size">{locales[locale]['table-size-label']}</label>
-        <select id="size" name="size" className="form-control form-control-sm" value={size}
-          onChange={onSizeChange}>
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
+      <div className="left">
+        <div className="form-group">
+          <label htmlFor="size">{locales[locale]['table-size-label']}</label>
+          <select id="size" name="size" className="form-control form-control-sm" value={size}
+            onChange={onSizeChange}>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
       </div>
-      <div className="form-group">
-        <input
-          type="text"
-          id="search"
-          name="search"
-          className="form-control"
-          placeholder={locales[locale]['table-input-search']}
-          value={search}
-          onChange={onSearchChange}
-          onClick={e => e.target.select()}
-        />
+      <div className="right">
+        <div className="form-group">
+          <input
+            type="text"
+            id="search"
+            name="search"
+            className="form-control"
+            placeholder={locales[locale]['table-input-search']}
+            value={search}
+            onChange={onSearchChange}
+            onClick={e => e.target.select()}
+          />
+        </div>
+        <button type="button" className="btn btn-sm btn-light" onClick={updateTable}>
+          {locales[locale]['table-button-reload']}
+        </button>
       </div>
-      <button type="button" className="btn btn-sm btn-light" onClick={updateTable}>
-        {locales[locale]['table-button-reload']}
-      </button>
     </div>
   );
 };
