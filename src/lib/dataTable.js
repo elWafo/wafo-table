@@ -65,7 +65,7 @@ const DataTable = ({
         search={search}
         onSearchChange={onSearchChange}
         locale={locale}
-        updateTable={updateTable ? updateTable : () => { paginationEvent(size, page, search); }}
+        updateTable={updateTable ? updateTable : () => { paginationEvent({size, page, search}); }}
       />
       <Table
         columns={columns}
