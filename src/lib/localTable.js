@@ -7,7 +7,7 @@ import './styles.css';
 
 const LocalTable = ({
   // Table props
-  columns, rows: propsRows, tableClass, configTable, noRowsMessage,
+  columns, rows: propsRows, tableClass, configTable, noRowsMessage, keepPage,
   // LocalTable props
   tableWrapperClass, updateTable, locale
 }) => {
@@ -18,7 +18,19 @@ const LocalTable = ({
   const [pages, setPages] = useState([]);
   const [search, setSearch] = useState('');
 
-  // Base rows for filters or ordering
+  // Base rows
+  useEffect(() => {
+    setBaseRows(propsRows);
+    if (!keepPage) { // if true keeps the current page, unless that page is no longer available
+      setPage(1);
+    } else {
+      let pagesNumber = Math.ceil(propsRows.length / size);
+      if (page > pagesNumber) {
+        setPage(1);
+      }
+    }
+  }, [propsRows]);
+
   // TODO: do the ordering here
   // TODO: optional filtering function
   useEffect(() => {
@@ -49,7 +61,7 @@ const LocalTable = ({
     }
     setBaseRows(filteredRows);
     setPage(1);
-  }, [propsRows, search]);
+  }, [search]);
 
   // Rows to display
   useEffect(() => {
@@ -161,6 +173,7 @@ LocalTable.propTypes = {
     PropTypes.string,
     PropTypes.element,
   ]),
+  keepPage: PropTypes.bool,
   // LocalTable props
   tableWrapperClass: PropTypes.string,
   updateTable: PropTypes.func,
@@ -173,6 +186,7 @@ LocalTable.defaultProps = {
   rows: [],
   tableClass: 'table',
   configTable: {},
+  keepPage: false,
   // LocalTable props
   tableWrapperClass: 'table-wrapper',
   updateTable: f => f,

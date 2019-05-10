@@ -8,8 +8,8 @@ function Demo() {
   return (
     <div>
       <h1>Demo of Table</h1>
-      {/* <LocalTableExample /> */}
-      <DataTableExample />
+      <LocalTableExample />
+      {/* <DataTableExample /> */}
     </div>
   );
 }
