@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import locales from './locales.json';
 import Table from './table';
 import TableControls from './tableControls';
+import useDebounce from './useDebounce.js';
 import './styles.css';
 
 const DataTable = ({
@@ -15,6 +16,8 @@ const DataTable = ({
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState([]);
+
+  const debouncedSearch = useDebounce(search, 300); // 300 avoids bouncing when holding delete
 
   // Generate pagination
   useEffect(() => {
@@ -33,9 +36,9 @@ const DataTable = ({
     paginationEvent({
       size,
       page,
-      search,
+      search: debouncedSearch,
     });
-  }, [size, page, search]);
+  }, [size, page, debouncedSearch]);
 
   function onSizeChange(event) {
     const { target: { value } } = event;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import locales from './locales.json';
 import Table from './table';
 import TableControls from './tableControls.js';
+import useDebounce from './useDebounce.js';
 import './styles.css';
 
 const LocalTable = ({
@@ -17,6 +18,8 @@ const LocalTable = ({
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState([]);
   const [search, setSearch] = useState('');
+
+  const debouncedSearch = useDebounce(search, 300); // 300 avois bouncing when holding delete
 
   // Base rows
   useEffect(() => {
@@ -35,7 +38,7 @@ const LocalTable = ({
   // TODO: optional filtering function
   useEffect(() => {
     let filteredRows = propsRows;
-    if (search) {
+    if (debouncedSearch) {
       filteredRows = propsRows.filter((row) => {
         let passes = false;
         Object.keys(row).forEach((key) => {
@@ -43,12 +46,12 @@ const LocalTable = ({
           // TODO: add cases as needed || custom search function as param.
           switch (typeof row[key]) {
             case 'string':
-              if (row[key].toLowerCase().indexOf(search.toLowerCase()) !== -1) {
+              if (row[key].toLowerCase().indexOf(debouncedSearch.toLowerCase()) !== -1) {
                 passes = true;
               }
               break;
             case 'number':
-              if (row[key].toString().indexOf(search) !== -1) {
+              if (row[key].toString().indexOf(debouncedSearch) !== -1) {
                 passes = true;
               }
               break;
@@ -61,7 +64,7 @@ const LocalTable = ({
     }
     setBaseRows(filteredRows);
     setPage(1);
-  }, [search]);
+  }, [debouncedSearch]);
 
   // Rows to display
   useEffect(() => {

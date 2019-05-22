@@ -31,7 +31,7 @@ const TableControls = ({ size, onSizeChange, search, onSearchChange, updateTable
             onClick={e => e.target.select()}
           />
         </div>
-        <button type="button" className="btn btn-sm btn-light" onClick={updateTable}>
+        <button type="button" id="wafotable-controls-reload" className="btn btn-sm btn-light" onClick={updateTable}>
           {locales[locale]['table-button-reload']}
         </button>
       </div>

@@ -90,8 +90,9 @@ const DataTableExample = () => {
   const [totalRows, setTotalRows] = useState(0);
 
   function getData(event) {
-    const { size, page } = event;
     console.log('updates data');
+    console.log(event);
+    const { size, page } = event;
 
     // Some logic with size/page and a fetch call.
 
