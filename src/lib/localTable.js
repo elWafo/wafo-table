@@ -8,7 +8,7 @@ import './styles.css';
 
 const LocalTable = ({
   // Table props
-  columns, rows: propsRows, tableClass, configTable, noRowsMessage, keepPage,
+  columns, rows: propsRows, tableClass, configTable, noRowsMessage, headerClick, keepPage,
   // LocalTable props
   tableWrapperClass, updateTable, locale
 }) => {
@@ -124,7 +124,7 @@ const LocalTable = ({
         tableClass={tableClass}
         configTable={configTable}
         noRowsMessage={noRowsMessage ? noRowsMessage : locales[locale]['table-noentries']}
-        headerClick={orderByColumn}
+        headerClick={headerClick ? headerClick : orderByColumn}
       />
       {/** Pagination */}
       {(baseRows.length > 0) && (
