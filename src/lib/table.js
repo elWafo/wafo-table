@@ -14,18 +14,30 @@ const Table = ({ columns, rows, tableClass, headerClick, noRowsMessage, configTa
   }
 
   function configRows() {
-    const readyRows = rows.map(row => (
-      Object.keys(row).map((key) => {
-        if (configTable && Object.prototype.hasOwnProperty.call(configTable, key)) {
+    const tableColumns = configTable.columns ? configTable.columns : configTable;
+    const rowsConfig = configTable.rows ? configTable.rows : {};
+
+    return rows.map((row, i) => {
+      const data = row.rowData ? row.rowData : row;
+      const rowConfig = (row.rowConfig && row.rowConfig.row) ? row.rowConfig.row : rowsConfig;
+
+      const columns = (row.rowConfig && row.rowConfig.columns) ? row.rowConfig.columns : tableColumns;
+
+      const rowObj = Object.keys(data).map((key) => {
+        if (columns && Object.prototype.hasOwnProperty.call(columns, key)) {
           return {
-            value: configTable[key].def ? configTable[key].def(row[key]) : row[key],
-            style: configTable[key].style ? configTable[key].style : {},
+            value: columns[key].def ? columns[key].def(data[key]) : data[key],
+            style: columns[key].style ? columns[key].style : {},
           };
         }
-        return { value: row[key], style: {} };
-      })
-    ));
-    return readyRows.map((obj, index) => <TableRow key={index} data={obj} />);
+        return {
+          value: data[key],
+          style: {},
+        };
+      });
+
+      return <TableRow key={i} data={rowObj} rowConfig={rowConfig} />;
+    });
   }
 
   return (
@@ -48,14 +60,23 @@ const Table = ({ columns, rows, tableClass, headerClick, noRowsMessage, configTa
 
 Table.propTypes = {
   columns: PropTypes.array,
-  rows: PropTypes.array,
+  rows: PropTypes.oneOfType([
+    PropTypes.shape({
+      rowData: PropTypes.any,
+      rowConfig: PropTypes.any,
+    }),
+    PropTypes.any,
+  ]),
   tableClass: PropTypes.string,
   headerClick: PropTypes.func,
   noRowsMessage: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,
   ]),
-  configTable: PropTypes.any,
+  configTable: PropTypes.shape({
+    rows: PropTypes.any,
+    columns: PropTypes.any,
+  }),
 };
 
 Table.defaultProps = {
@@ -72,8 +93,8 @@ Table.defaultProps = {
  * @param {*} data Array with the data for each column. 
  * data: [{value: "", style: {...}}]
  */
-const TableRow = ({ data }) => (
-  <tr>
+const TableRow = ({ data, rowConfig }) => (
+  <tr style={rowConfig}>
     {data.map((obj, index) => (
       <td key={index} style={obj.style}>{obj.value}</td>
     ))}
@@ -82,10 +103,12 @@ const TableRow = ({ data }) => (
 
 TableRow.propTypes = {
   data: PropTypes.array,
+  rowConfig: PropTypes.any,
 };
 
 TableRow.defaultProps = {
   data: [],
+  rowConfig: {}
 };
 
 export default Table;

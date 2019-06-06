@@ -4,27 +4,53 @@ import { LocalTable } from '../../lib';
 const columns = ['Id', 'Nombre', 'Edad', 'Fecha de Nacimiento', 'Lugar de nacimiento', 'Ayylmao'];
 
 const configTable = {
-  ayylmao: {
-    def: (val) => {
-      const td = <span>{val ? 'Si' : 'No'}</span>;
-      return td;
-    },
-    style: {
-      backgroundColor: '#333',
-      color: '#fff',
+  columns: {
+    ayylmao: {
+      def: (val) => {
+        const td = <span>{val ? 'Si' : 'No'}</span>;
+        return td;
+      },
+      style: {
+        backgroundColor: '#333',
+        color: '#fff',
+      },
     },
   },
+  rows: {
+    backgroundColor: 'red'
+  }
 };
 
 const LocalTableExample = () => {
   const [rows, setRows] = React.useState([
     {
-      id: 1,
-      name: 'José Luis',
-      age: 25,
-      birthdate: '02-12-1993',
-      birthplace: 'Hermosillo, Son.',
-      ayylmao: true,
+      rowData: {
+        id: 1,
+        name: 'José Luis',
+        age: 25,
+        birthdate: '02-12-1993',
+        birthplace: 'Hermosillo, Son.',
+        ayylmao: true,
+
+      },
+      rowConfig: {
+        row: {
+          backgroundColor: 'blue',
+          color: '#fff',
+        },
+        columns: {
+          ayylmao: {
+            def: (val) => {
+              const td = <span>{val ? 'Si' : 'No'}</span>;
+              return td;
+            },
+            style: {
+              backgroundColor: 'green',
+              color: '#fff',
+            },
+          },
+        },
+      },
     },
     {
       id: 2,
