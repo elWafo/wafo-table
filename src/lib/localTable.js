@@ -41,17 +41,19 @@ const LocalTable = ({
     if (debouncedSearch) {
       filteredRows = propsRows.filter((row) => {
         let passes = false;
-        Object.keys(row).forEach((key) => {
+        const { rowData } = row;
+        let searchableRow = rowData || row;
+        Object.keys(searchableRow).forEach((key) => {
           if (passes) { return; }
           // TODO: add cases as needed || custom search function as param.
-          switch (typeof row[key]) {
+          switch (typeof searchableRow[key]) {
             case 'string':
-              if (row[key].toLowerCase().indexOf(debouncedSearch.toLowerCase()) !== -1) {
+              if (searchableRow[key].toLowerCase().indexOf(debouncedSearch.toLowerCase()) !== -1) {
                 passes = true;
               }
               break;
             case 'number':
-              if (row[key].toString().indexOf(debouncedSearch) !== -1) {
+              if (searchableRow[key].toString().indexOf(debouncedSearch) !== -1) {
                 passes = true;
               }
               break;
