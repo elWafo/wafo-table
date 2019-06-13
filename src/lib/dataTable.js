@@ -46,6 +46,8 @@ const DataTable = ({
     }
   }, [size, page, debouncedSearch, previousSearch]);
 
+  // TODO: Fix pagination on page size change.
+
   function onSizeChange(event) {
     const { target: { value } } = event;
     setSize(value);
