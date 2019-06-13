@@ -5,6 +5,7 @@ import Table from './table';
 import TableControls from './tableControls';
 import useDebounce from './useDebounce.js';
 import './styles.css';
+import usePrevious from './usePrevious.js';
 
 const DataTable = ({
   // Table props
@@ -18,6 +19,7 @@ const DataTable = ({
   const [pages, setPages] = useState([]);
 
   const debouncedSearch = useDebounce(search, 300); // 300 avoids bouncing when holding delete
+  const previousSearch = usePrevious(debouncedSearch);
 
   // Generate pagination
   useEffect(() => {
@@ -33,12 +35,16 @@ const DataTable = ({
 
   // Fire event
   useEffect(() => {
-    paginationEvent({
-      size,
-      page,
-      search: debouncedSearch,
-    });
-  }, [size, page, debouncedSearch]);
+    if ((debouncedSearch !== previousSearch) && page !== 1) {
+      setPage(1);
+    } else {
+      paginationEvent({
+        size,
+        page,
+        search: debouncedSearch,
+      });
+    }
+  }, [size, page, debouncedSearch, previousSearch]);
 
   function onSizeChange(event) {
     const { target: { value } } = event;
@@ -68,7 +74,7 @@ const DataTable = ({
         search={search}
         onSearchChange={onSearchChange}
         locale={locale}
-        updateTable={updateTable ? updateTable : () => { paginationEvent({size, page, search}); }}
+        updateTable={updateTable ? updateTable : () => { paginationEvent({ size, page, search }); }}
       />
       <Table
         columns={columns}
