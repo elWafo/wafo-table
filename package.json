@@ -1,5 +1,5 @@
 {
-  "name": "wafo-table",
+  "name": "@wafo/table",
   "version": "0.2.10",
   "description": "My own datatable done in React.",
   "main": "lib/index.js",
@@ -40,10 +40,10 @@
     "webpack-dev-server": "^3.2.1"
   },
   "author": "Jose Luis Vega <joseluisvb@outlook.com>",
-  "homepage": "https://github.com/elWafo/wafo-table",
+  "homepage": "https://github.com/elWafo/table",
   "repository": {
     "type": "git",
-    "url": "git@github.com:elWafo/wafo-table.git"
+    "url": "git@github.com:elWafo/table.git"
   },
   "dependencies": {}
 }
