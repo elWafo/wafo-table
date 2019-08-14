@@ -1,11 +1,11 @@
-# wafo-table
+# @wafo/table
 It's a library inspired by *[jQuery DataTables](https://datatables.net/)*, which allows to create interactive tables quick with some cusomization on top.
 
 ## Demo
 Coming soon
 
 ## Installation
-    npm install --save wafo-table
+    npm install --save @wafo/table
 
 > **Note:** This library has zero dependencies
 
@@ -14,7 +14,7 @@ This example shows one of the easiest way this library can be used.
 
 ```javascript
 import React from 'react';
-import { LocalTable } from 'wafo-table';
+import { LocalTable } from '@wafo/table';
 
 const columns = ['Id', 'Name', 'Email'];
 
@@ -48,7 +48,7 @@ This component works best when you have all the data at hand (maybe when loading
 Example:
 ```javascript
 import React, { useState, useEffect } from 'react';
-import { LocalTable } from 'wafo-table';
+import { LocalTable } from '@wafo/table';
 
 const columns = ['Id', 'Name', 'Email'];
 
