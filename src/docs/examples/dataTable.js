@@ -89,7 +89,7 @@ const DataTableExample = () => {
   const [rows, setRows] = useState([]);
   const [totalRows, setTotalRows] = useState(0);
 
-  function getData(event) {
+  /* function getData(event) {
     console.log('updates data');
     console.log(event);
     const { size, page } = event;
@@ -98,7 +98,18 @@ const DataTableExample = () => {
 
     setRows(defaultRows);
     setTotalRows(12);
-  }
+  } */
+
+  const getData = React.useCallback((event) => {
+    console.log('updates data');
+    console.log(event);
+    const { size, page } = event;
+
+    // Some logic with size/page and a fetch call.
+
+    setRows(defaultRows);
+    setTotalRows(12);
+  }, []);
 
   return (
     <div className="datatable-example">
@@ -108,6 +119,7 @@ const DataTableExample = () => {
         totalRows={totalRows}
         paginationEvent={getData}
         locale={'es'}
+        // initialPage={2}
       />
     </div>
   );

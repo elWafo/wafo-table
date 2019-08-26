@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import locales from './locales.json';
-import './styles.css';
+import locales from '../locales.json';
+import '../styles.css';
 
 const TableControls = ({ size, onSizeChange, search, onSearchChange, updateTable, locale }) => {
   return (

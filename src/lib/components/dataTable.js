@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import locales from './locales.json';
+import locales from '../locales.json';
 import Table from './table';
 import TableControls from './tableControls';
-import useDebounce from './useDebounce.js';
-import './styles.css';
-import usePrevious from './usePrevious.js';
+import useDebounce from '../hooks/useDebounce';
+import usePrevious from '../hooks/usePrevious';
+import '../styles.css';
 
 const DataTable = ({
   // Table props
   columns, rows, tableClass, configTable, noRowsMessage, headerClick,
   // Datatable props
-  tableWrapperClass, updateTable, locale, totalRows, paginationEvent,
+  tableWrapperClass, updateTable, locale, totalRows, paginationEvent, initialPage
 }) => {
+  // TODO: Maybe useContext could help with sharing the state of the table with the parent.
+  
   const [size, setSize] = useState('10');
   const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(initialPage);
   const [pages, setPages] = useState([]);
 
   const debouncedSearch = useDebounce(search, 300); // 300 avoids bouncing when holding delete
   const previousSearch = usePrevious(debouncedSearch);
+  const previousPaginationEvent = usePrevious(paginationEvent);
 
   // Generate pagination
   useEffect(() => {
@@ -31,6 +34,10 @@ const DataTable = ({
       }
     }
     setPages(pages);
+    if (pages.length && pages.length < page) { // If pages lower than current page.
+      console.log('wat 1 ', pages.length, page);
+      setPage(1);
+    }
   }, [page, totalRows, size]);
 
   // Fire event
@@ -44,9 +51,13 @@ const DataTable = ({
         search: debouncedSearch,
       });
     }
-  }, [size, page, debouncedSearch, previousSearch]);
+  }, [size, page, debouncedSearch, previousSearch, paginationEvent]);
 
-  // TODO: Fix pagination on page size change.
+  useEffect(() => {
+    if (paginationEvent !== previousPaginationEvent) {
+      console.warn('[Warning]: paginationEvent callback changed. Was this intentional?');
+    }
+  }, [paginationEvent, previousPaginationEvent]);
 
   function onSizeChange(event) {
     const { target: { value } } = event;
@@ -76,7 +87,7 @@ const DataTable = ({
         search={search}
         onSearchChange={onSearchChange}
         locale={locale}
-        updateTable={updateTable ? updateTable : () => { paginationEvent({ size, page, search }); }}
+        updateTable={updateTable ? () => updateTable({ size, page, search }) : () => { paginationEvent({ size, page, search }); }}
       />
       <Table
         columns={columns}
@@ -143,6 +154,7 @@ DataTable.propTypes = {
   locale: PropTypes.string,
   totalRows: PropTypes.number,
   paginationEvent: PropTypes.func,
+  initialPage: PropTypes.number,
 };
 
 DataTable.defaultProps = {
@@ -159,6 +171,7 @@ DataTable.defaultProps = {
   locale: 'en',
   totalRows: 0,
   paginationEvent: f => f,
+  initialPage: 1,
 };
 
 export default DataTable;

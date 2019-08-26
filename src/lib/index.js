@@ -1,6 +1,6 @@
-import Table from './table';
-import LocalTable from './localTable';
-import DataTable from './dataTable';
+import Table from './components/table';
+import LocalTable from './components/localTable';
+import DataTable from './components/dataTable';
 
 export {
   Table,

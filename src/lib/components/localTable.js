@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import locales from './locales.json';
+import locales from '../locales.json';
 import Table from './table';
 import TableControls from './tableControls.js';
-import useDebounce from './useDebounce.js';
-import './styles.css';
+import useDebounce from '../hooks/useDebounce';
+import '../styles.css';
 
 const LocalTable = ({
   // Table props
@@ -179,6 +179,7 @@ LocalTable.propTypes = {
     PropTypes.element,
   ]),
   keepPage: PropTypes.bool,
+  headerClick: PropTypes.func,
   // LocalTable props
   tableWrapperClass: PropTypes.string,
   updateTable: PropTypes.func,
@@ -192,6 +193,7 @@ LocalTable.defaultProps = {
   tableClass: 'table',
   configTable: {},
   keepPage: false,
+  headerClick: f => f,
   // LocalTable props
   tableWrapperClass: 'table-wrapper',
   updateTable: f => f,
