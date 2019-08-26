@@ -119,7 +119,7 @@ const DataTableExample = () => {
         totalRows={totalRows}
         paginationEvent={getData}
         locale={'es'}
-        // initialPage={2}
+        initialPage={5}
       />
     </div>
   );

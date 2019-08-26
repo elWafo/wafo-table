@@ -17,7 +17,7 @@ const DataTable = ({
   
   const [size, setSize] = useState('10');
   const [search, setSearch] = useState('');
-  const [page, setPage] = useState(initialPage);
+  const [page, setPage] = useState(initialPage || 1);
   const [pages, setPages] = useState([]);
 
   const debouncedSearch = useDebounce(search, 300); // 300 avoids bouncing when holding delete
