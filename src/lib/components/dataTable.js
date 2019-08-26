@@ -123,7 +123,7 @@ const DataTable = ({
                 </li>
               ))}
               <li className="page-item">
-                <button type="button" className="page-link" disabled={page === pages.length}
+                <button type="button" className="page-link" disabled={page === Math.ceil(totalRows / size)}
                   onClick={() => { pageChange('next'); }}>
                   {locales[locale]['table-pagination-next']}
                 </button>
