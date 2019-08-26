@@ -34,8 +34,7 @@ const DataTable = ({
       }
     }
     setPages(pages);
-    if (pages.length && pages.length < page) { // If pages lower than current page.
-      console.log('wat 1 ', pages.length, page);
+    if (pagesNumber && pagesNumber < page) { // If pages lower than current page.
       setPage(1);
     }
   }, [page, totalRows, size]);
