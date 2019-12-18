@@ -1,27 +1,24 @@
 import React from 'react';
 import { LocalTable } from '../../lib';
 
-const columns = ['Id', 'Nombre', 'Edad', 'Fecha de Nacimiento', 'Lugar de nacimiento', 'Ayylmao'];
-
-const configTable = {
-  columns: {
-    ayylmao: {
-      def: (val) => {
-        const td = <span>{val ? 'Si' : 'No'}</span>;
-        return td;
-      },
-      style: {
-        backgroundColor: '#333',
-        color: '#fff',
-      },
+const columnsConfig = {
+  id: {
+    render: function col(val) {
+      return <span>#{val}</span>;
+    },
+    style: {
+      backgroundColor: 'red',
+      color: 'black',
     },
   },
-  rows: {
-    backgroundColor: 'red'
-  }
+  ayylmao: function col(val) {
+    return <span>{val ? 'Si' : 'No'}</span>;
+  },
 };
 
-const LocalTableExample = () => {
+const rowsStyle = { backgroundColor: '#f5f5f5' };
+
+const ExampleLocalTable = () => {
   const [rows, setRows] = React.useState([
     {
       rowData: {
@@ -31,30 +28,15 @@ const LocalTableExample = () => {
         birthdate: '02-12-1993',
         birthplace: 'Hermosillo, Son.',
         ayylmao: true,
-
       },
-      rowConfig: {
-        row: {
-          backgroundColor: 'blue',
-          color: '#fff',
-        },
-        columns: {
-          ayylmao: {
-            def: (val) => {
-              const td = <span>{val ? 'Si' : 'No'}</span>;
-              return td;
-            },
-            style: {
-              backgroundColor: 'green',
-              color: '#fff',
-            },
-          },
-        },
+      rowStyle: {
+        backgroundColor: 'blue',
+        color: '#fff',
       },
     },
     {
       id: 2,
-      name: 'El Gaytis',
+      name: 'Jose E. Gaytán',
       age: 24,
       birthdate: '29-08-1994',
       birthplace: 'Hermosillo, Son.',
@@ -142,7 +124,7 @@ const LocalTableExample = () => {
     },
   ]);
 
-  const updateRows = () => {
+  const updateRows = ({ size, page, search }) => {
     setRows([
       {
         id: 1,
@@ -244,17 +226,24 @@ const LocalTableExample = () => {
   };
 
   return (
-    <div className="localtable-example">
+    <div>
       <LocalTable
-        columns={columns}
-        rows={rows}
         locale={'en'}
-        configTable={configTable}
+        columns={['Id', 'Nombre', 'Edad', 'Fecha de Nacimiento', 'Lugar de nacimiento', 'Ayylmao']}
+        rows={rows}
+        columnsConfig={columnsConfig}
+        rowsStyle={rowsStyle}
         updateTable={updateRows}
-        keepPage={false}
+        controls={
+          <div className="test">
+            <button type="button" onClick={updateRows}>
+              Change data
+            </button>
+          </div>
+        }
       />
     </div>
   );
-}
+};
 
-export default LocalTableExample;
+export default ExampleLocalTable;

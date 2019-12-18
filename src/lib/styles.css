@@ -1,44 +1,43 @@
-.table-controls {
-  display: flex;
-  justify-content: space-between;
+.wafotable .table {
   margin-bottom: 1rem;
 }
 
-.table-controls .left,
-.table-controls .right {
-  display: flex;
-}
-
-.table-controls .left .form-group {
-  display: flex;
-  align-items: center;
-}
-
-.table-controls .left .form-group label {
-  font-size: 0.8em;
-  margin-right: .5rem;
-  margin-bottom: 0
-}
-
-.table-controls .form-group {
-  margin-right: .5rem;
-  margin-bottom: 0;
-}
-
-.pagination-wrapper {
+.wafotable .pagination-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
-.pagination-wrapper .description {
-  font-size: 0.8em;
-  margin: 0;
+.wafotable .pagination-wrapper .left {
+  display: flex;
 }
 
-.pagination-wrapper .pagination {
+.wafotable .pagination-wrapper .description {
+  font-size: 0.8em;
+  margin: 0;
+  margin-left: .5rem;
+}
+
+.wafotable .pagination-wrapper .pagination {
   display: flex;
   padding-left: 0;
   list-style: none;
   border-radius: .25rem;
+  margin: 0;
+}
+
+.wafotable .controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.wafotable .controls .left,
+.wafotable .right {
+  display: flex;
+}
+
+.wafotable .controls .form-group {
+  margin-right: .5rem;
+  margin-bottom: 0;
 }
