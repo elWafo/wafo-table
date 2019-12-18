@@ -4,7 +4,6 @@ import Controls from './controls';
 import Table from './table';
 import Pagination from './pagination';
 import useDebounce from '../hooks/useDebounce';
-import locales from '../locales.json';
 
 const LocalTable = ({
   // Base table props
@@ -15,8 +14,8 @@ const LocalTable = ({
   noRowsMessage,
   columnsConfig,
   rowsStyle,
-  // Local table props
   locale,
+  // Local table props
   tableWrapperClass,
   keepPage, // keep the current page when rows change?
   controls, // Children to controls header
@@ -129,7 +128,7 @@ const LocalTable = ({
         rows={renderRows}
         tableClass={tableClass}
         onHeaderClick={onHeaderClick ? onHeaderClick : orderByColumn}
-        noRowsMessage={noRowsMessage ? noRowsMessage : locales[locale]['table-noentries']}
+        noRowsMessage={noRowsMessage}
         columnsConfig={columnsConfig}
         rowsStyle={rowsStyle}
       />
@@ -163,8 +162,8 @@ LocalTable.propTypes = {
   noRowsMessage: PropTypes.string,
   columnsConfig: PropTypes.any,
   rowsStyle: PropTypes.any,
-  // LocalTable props
   locale: PropTypes.string,
+  // LocalTable props
   tableWrapperClass: PropTypes.string,
   keepPage: PropTypes.bool,
   controls: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
@@ -177,11 +176,11 @@ LocalTable.defaultProps = {
   rows: [],
   tableClass: 'table',
   onHeaderClick: null,
-  noRowsMessage: 'No data to show',
+  noRowsMessage: '',
   columnsConfig: {},
   rowsStyle: {},
-  // LocalTable props
   locale: 'en',
+  // LocalTable props
   tableWrapperClass: 'table-wrapper',
   keepPage: false,
   controls: null,

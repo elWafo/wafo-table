@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import locales from '../locales.json';
 
-const Table = ({ columns, rows, tableClass, onHeaderClick, noRowsMessage, columnsConfig, rowsStyle }) => {
+const Table = ({ columns, rows, tableClass, onHeaderClick, noRowsMessage, columnsConfig, rowsStyle, locale }) => {
   const readyRows = React.useMemo(() => {
     return rows.map(row => {
       // Allows to pass the column data directly or adding a css object for the row.
@@ -51,7 +52,7 @@ const Table = ({ columns, rows, tableClass, onHeaderClick, noRowsMessage, column
         {rows.length === 0 && (
           <tr>
             <td colSpan="100%" style={{ textAlign: 'center' }}>
-              {noRowsMessage}
+              {noRowsMessage ? noRowsMessage : locales[locale]['table-noentries']}
             </td>
           </tr>
         )}
@@ -74,6 +75,7 @@ Table.propTypes = {
   noRowsMessage: PropTypes.string,
   columnsConfig: PropTypes.any,
   rowsStyle: PropTypes.any,
+  locale: PropTypes.string,
 };
 
 Table.defaultProps = {
@@ -81,9 +83,10 @@ Table.defaultProps = {
   rows: [],
   tableClass: 'table',
   onHeaderClick: f => f,
-  noRowsMessage: 'No data to show',
+  noRowsMessage: '',
   columnsConfig: {},
   rowsStyle: {},
+  locale: 'en',
 };
 
 export default Table;

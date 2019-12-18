@@ -4,7 +4,6 @@ import Controls from './controls';
 import Table from './table';
 import Pagination from './pagination';
 import useDebounce from '../hooks/useDebounce';
-import locales from '../locales.json';
 
 const DataTable = ({
   // Base table props
@@ -15,8 +14,8 @@ const DataTable = ({
   noRowsMessage,
   columnsConfig,
   rowsStyle,
-  // Local table props
   locale,
+  // Local table props
   tableWrapperClass,
   controls, // Children to controls header
   updateTable,
@@ -97,7 +96,7 @@ const DataTable = ({
         rows={rows}
         tableClass={tableClass}
         onHeaderClick={onHeaderClick}
-        noRowsMessage={noRowsMessage ? noRowsMessage : locales[locale]['table-noentries']}
+        noRowsMessage={noRowsMessage}
         columnsConfig={columnsConfig}
         rowsStyle={rowsStyle}
       />
@@ -131,8 +130,8 @@ DataTable.propTypes = {
   noRowsMessage: PropTypes.string,
   columnsConfig: PropTypes.any,
   rowsStyle: PropTypes.any,
-  // DataTable props
   locale: PropTypes.string,
+  // DataTable props
   tableWrapperClass: PropTypes.string,
   controls: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   updateTable: PropTypes.func,
@@ -147,11 +146,11 @@ DataTable.defaultProps = {
   rows: [],
   tableClass: 'table',
   onHeaderClick: null,
-  noRowsMessage: 'No data to show',
+  noRowsMessage: '',
   columnsConfig: {},
   rowsStyle: {},
-  // LocalTable props
   locale: 'en',
+  // LocalTable props
   tableWrapperClass: 'table-wrapper',
   controls: null,
   updateTable: null,
