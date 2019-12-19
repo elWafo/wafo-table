@@ -1,136 +1,115 @@
-import React, { useState, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import locales from '../locales.json';
+import Controls from './controls';
 import Table from './table';
-import TableControls from './tableControls';
+import Pagination from './pagination';
 import useDebounce from '../hooks/useDebounce';
-import usePrevious from '../hooks/usePrevious';
-import '../styles.css';
 
 const DataTable = ({
-  // Table props
-  columns, rows, tableClass, configTable, noRowsMessage, headerClick,
-  // Datatable props
-  tableWrapperClass, updateTable, locale, totalRows, paginationEvent, initialPage
-}) => {
-  // TODO: Maybe useContext could help with sharing the state of the table with the parent.
-  
-  const [size, setSize] = useState('10');
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(initialPage || 1);
-  const [pages, setPages] = useState([]);
+  // Base table props
+  columns,
+  rows,
+  tableClass,
+  onHeaderClick,
+  noRowsMessage,
+  columnsConfig,
+  rowsStyle,
+  locale,
+  // Local table props
+  tableWrapperClass,
+  controls, // Children to controls header
+  updateTable,
+  initialPage,
+  totalRows,
+  onPagination,
+}, ref) => {
+  const [size, setSize] = React.useState('10');
+  const [page, setPage] = React.useState(initialPage || 1);
+  const [search, setSearch] = React.useState('');
 
-  const debouncedSearch = useDebounce(search, 300); // 300 avoids bouncing when holding delete
-  const previousSearch = usePrevious(debouncedSearch);
-  const previousPaginationEvent = usePrevious(paginationEvent);
+  const debouncedSearch = useDebounce(search, 300);
 
-  // Generate pagination
-  useEffect(() => {
+  /** ******************************** */
+  /** Pagination bois */
+  /** ******************************** */
+
+  const pages = React.useMemo(() => {
     let pagesNumber = Math.ceil(totalRows / size);
     const pages = [];
-    for (let i = (page - 3); i <= (page + 3); i++) {
+    for (let i = page - 3; i <= page + 3; i++) {
       if (i > 0 && i <= pagesNumber) {
         pages.push(i);
       }
     }
-    setPages(pages);
-    if (pagesNumber && pagesNumber < page) { // If pages lower than current page.
+    if (pagesNumber && pagesNumber < page) {
       setPage(1);
     }
+    return pages;
   }, [page, totalRows, size]);
 
-  // Fire event
-  useEffect(() => {
-    if ((debouncedSearch !== previousSearch) && page !== 1) {
-      setPage(1);
-    } else {
-      paginationEvent({
-        size,
-        page,
-        search: debouncedSearch,
-      });
-    }
-  }, [size, page, debouncedSearch, previousSearch, paginationEvent]);
+  React.useEffect(() => {
+    onPagination({
+      size,
+      page,
+      search: debouncedSearch,
+    });
+  }, [size, page, debouncedSearch, onPagination]);
 
-  useEffect(() => {
-    if (paginationEvent !== previousPaginationEvent) {
-      console.warn('[Warning]: paginationEvent callback changed. Was this intentional?');
-    }
-  }, [paginationEvent, previousPaginationEvent]);
+  /** ******************************** */
+  /** Functions */
+  /** ******************************** */
 
-  function onSizeChange(event) {
-    const { target: { value } } = event;
-    setSize(value);
-  }
-
-  function onSearchChange(event) {
-    const { target: { value } } = event;
-    setSearch(value);
-  }
-
-  function pageChange(value) {
+  function handlePageChange(value) {
     let newPage = value;
     if (value === 'prev') {
-      newPage = (page - 1);
+      newPage = page - 1;
     } else if (value === 'next') {
-      newPage = (page + 1);
+      newPage = page + 1;
     }
     setPage(newPage);
   }
 
+  React.useImperativeHandle(ref, () => ({
+    forceUpdate() {
+      onPagination({
+        size,
+        page,
+        search: debouncedSearch,
+      });
+    },
+  }));
+
   return (
-    <div className={tableWrapperClass}>
-      <TableControls
-        size={size}
-        onSizeChange={onSizeChange}
-        search={search}
-        onSearchChange={onSearchChange}
+    <div className={`wafotable ${tableWrapperClass}`}>
+      <Controls
         locale={locale}
-        updateTable={updateTable ? () => updateTable({ size, page, search }) : () => { paginationEvent({ size, page, search }); }}
-      />
+        search={search}
+        onSearchChange={({ target: { value } }) => setSearch(value)}
+        updateTable={
+          updateTable ? () => updateTable({ size, page, search }) : () => onPagination({ size, page, search })
+        }
+      >
+        {controls}
+      </Controls>
       <Table
         columns={columns}
         rows={rows}
         tableClass={tableClass}
-        configTable={configTable}
+        onHeaderClick={onHeaderClick}
         noRowsMessage={noRowsMessage}
-        headerClick={headerClick}
+        columnsConfig={columnsConfig}
+        rowsStyle={rowsStyle}
       />
-      {/** Pagination */}
-      {(totalRows > 0) && (
-        <div className="pagination-wrapper">
-          <p className="description">
-            {`
-              ${locales[locale]['table-pagination-desc-1']} 
-              ${(page - 1) * size + 1} 
-              ${locales[locale]['table-pagination-desc-2']} 
-              ${page * size} ${locales[locale]['table-pagination-desc-3']} 
-              ${totalRows} 
-              ${locales[locale]['table-pagination-desc-4']}
-            `}
-          </p>
-          <nav>
-            <ul className="pagination pagination-sm">
-              <li className="page-item">
-                <button type="button" className="page-link" disabled={page === 1}
-                  onClick={() => { pageChange('prev'); }}>
-                  {locales[locale]['table-pagination-prev']}
-                </button>
-              </li>
-              {pages.map((btn, index) => (
-                <li key={index} className={(btn === page) ? 'page-item active' : 'page-item'}>
-                  <button type="button" className="page-link" onClick={() => { pageChange(btn); }}>{btn}</button>
-                </li>
-              ))}
-              <li className="page-item">
-                <button type="button" className="page-link" disabled={page === Math.ceil(totalRows / size)}
-                  onClick={() => { pageChange('next'); }}>
-                  {locales[locale]['table-pagination-next']}
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
+      {rows.length > 0 && (
+        <Pagination
+          locale={locale}
+          page={page}
+          size={size}
+          pages={pages}
+          rowsLength={totalRows}
+          onPageChange={handlePageChange}
+          onSizeChange={({ target: { value } }) => setSize(value)}
+        />
       )}
     </div>
   );
@@ -139,21 +118,26 @@ const DataTable = ({
 DataTable.propTypes = {
   // Table props
   columns: PropTypes.array,
-  rows: PropTypes.array,
-  tableClass: PropTypes.string,
-  configTable: PropTypes.any,
-  noRowsMessage: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element,
+  rows: PropTypes.oneOfType([
+    PropTypes.shape({
+      data: PropTypes.any,
+      config: PropTypes.any,
+    }),
+    PropTypes.any,
   ]),
-  headerClick: PropTypes.func,
-  // Datatable props
-  tableWrapperClass: PropTypes.string,
-  updateTable: PropTypes.func,
+  tableClass: PropTypes.string,
+  onHeaderClick: PropTypes.func,
+  noRowsMessage: PropTypes.string,
+  columnsConfig: PropTypes.any,
+  rowsStyle: PropTypes.any,
   locale: PropTypes.string,
-  totalRows: PropTypes.number,
-  paginationEvent: PropTypes.func,
+  // DataTable props
+  tableWrapperClass: PropTypes.string,
+  controls: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  updateTable: PropTypes.func,
   initialPage: PropTypes.number,
+  totalRows: PropTypes.number,
+  onPagination: PropTypes.func,
 };
 
 DataTable.defaultProps = {
@@ -161,16 +145,19 @@ DataTable.defaultProps = {
   columns: [],
   rows: [],
   tableClass: 'table',
-  configTable: {},
-  noRowsMessage: 'No data to show.',
-  headerClick: f => f,
-  // Datatable props
-  tableWrapperClass: 'table-wrapper',
-  // updateTable: f => f,
+  onHeaderClick: null,
+  noRowsMessage: '',
+  columnsConfig: {},
+  rowsStyle: {},
   locale: 'en',
-  totalRows: 0,
-  paginationEvent: f => f,
+  // LocalTable props
+  tableWrapperClass: 'table-wrapper',
+  controls: null,
+  updateTable: null,
   initialPage: 1,
+  totalRows: 0,
+  onPagination: f => f,
 };
 
-export default DataTable;
+export default forwardRef(DataTable);
+// export default DataTable;
