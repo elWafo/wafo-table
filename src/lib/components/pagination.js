@@ -7,7 +7,7 @@ const Pagination = ({ locale, page, size, pages, rowsLength, onPageChange, onSiz
     <div className="pagination-wrapper">
       <div className="left">
         <div className="form-group">
-          <label htmlFor="size">{locales[locale]['table-size-label']}</label>
+          {/* <label htmlFor="size">{locales[locale]['table-size-label']}</label> */}
           <select id="size" name="size" className="form-control form-control-sm" value={size} onChange={onSizeChange}>
             <option value="10">10</option>
             <option value="25">25</option>

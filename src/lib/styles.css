@@ -12,6 +12,15 @@
   display: flex;
 }
 
+.wafotable .pagination-wrapper .left .form-group {
+  display: flex;
+  align-items: center;
+}
+
+.wafotable .pagination-wrapper .left .form-group label {
+  margin-right: .5rem;
+}
+
 .wafotable .pagination-wrapper .description {
   font-size: 0.8em;
   margin: 0;
