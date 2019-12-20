@@ -1,6 +1,6 @@
 {
   "name": "@wafo/table",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "My own datatable done in React.",
   "main": "lib/index.js",
   "scripts": {
