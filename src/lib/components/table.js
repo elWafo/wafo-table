@@ -14,7 +14,9 @@ const Table = ({ columns, rows, tableClass, onHeaderClick, noRowsMessage, column
             // If column config includes the key but there is no render function prop, assume the function is passed directly
             value: columnsConfig[key].render
               ? columnsConfig[key].render(rowData[key])
-              : columnsConfig[key](rowData[key]),
+              : typeof columnsConfig[key] === 'function'
+              ? columnsConfig[key](rowData[key])
+              : rowData[key],
             style: columnsConfig[key].style ? columnsConfig[key].style : {},
           };
         }
