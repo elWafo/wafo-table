@@ -5,24 +5,27 @@ import Table from './table';
 import Pagination from './pagination';
 import useDebounce from '../hooks/useDebounce';
 
-const DataTable = ({
-  // Base table props
-  columns,
-  rows,
-  tableClass,
-  onHeaderClick,
-  noRowsMessage,
-  columnsConfig,
-  rowsStyle,
-  locale,
-  // Local table props
-  tableWrapperClass,
-  controls, // Children to controls header
-  updateTable,
-  initialPage,
-  totalRows,
-  onPagination,
-}, ref) => {
+const DataTable = (
+  {
+    // Base table props
+    columns,
+    rows,
+    tableClass,
+    onHeaderClick,
+    noRowsMessage,
+    columnsConfig,
+    rowsStyle,
+    locale,
+    // Local table props
+    tableWrapperClass,
+    controls, // Children to controls header
+    updateTable,
+    initialPage,
+    totalRows,
+    onPagination,
+  },
+  ref,
+) => {
   const [size, setSize] = React.useState('10');
   const [page, setPage] = React.useState(initialPage || 1);
   const [search, setSearch] = React.useState('');
@@ -91,26 +94,28 @@ const DataTable = ({
       >
         {controls}
       </Controls>
-      <Table
-        columns={columns}
-        rows={rows}
-        tableClass={tableClass}
-        onHeaderClick={onHeaderClick}
-        noRowsMessage={noRowsMessage}
-        columnsConfig={columnsConfig}
-        rowsStyle={rowsStyle}
-      />
-      {rows.length > 0 && (
-        <Pagination
-          locale={locale}
-          page={page}
-          size={size}
-          pages={pages}
-          rowsLength={totalRows}
-          onPageChange={handlePageChange}
-          onSizeChange={({ target: { value } }) => setSize(value)}
+      <div className="wafotable-wrapper">
+        <Table
+          columns={columns}
+          rows={rows}
+          tableClass={tableClass}
+          onHeaderClick={onHeaderClick}
+          noRowsMessage={noRowsMessage}
+          columnsConfig={columnsConfig}
+          rowsStyle={rowsStyle}
         />
-      )}
+        {rows.length > 0 && (
+          <Pagination
+            locale={locale}
+            page={page}
+            size={size}
+            pages={pages}
+            rowsLength={totalRows}
+            onPageChange={handlePageChange}
+            onSizeChange={({ target: { value } }) => setSize(value)}
+          />
+        )}
+      </div>
     </div>
   );
 };

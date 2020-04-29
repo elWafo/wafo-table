@@ -123,26 +123,28 @@ const LocalTable = ({
       >
         {controls}
       </Controls>
-      <Table
-        columns={columns}
-        rows={renderRows}
-        tableClass={tableClass}
-        onHeaderClick={onHeaderClick ? onHeaderClick : orderByColumn}
-        noRowsMessage={noRowsMessage}
-        columnsConfig={columnsConfig}
-        rowsStyle={rowsStyle}
-      />
-      {rows.length > 0 && (
-        <Pagination
-          locale={locale}
-          page={page}
-          size={size}
-          pages={pages}
-          rowsLength={rows.length}
-          onPageChange={handlePageChange}
-          onSizeChange={({ target: { value } }) => setSize(value)}
+      <div className="wafotable-wrapper">
+        <Table
+          columns={columns}
+          rows={renderRows}
+          tableClass={tableClass}
+          onHeaderClick={onHeaderClick ? onHeaderClick : orderByColumn}
+          noRowsMessage={noRowsMessage}
+          columnsConfig={columnsConfig}
+          rowsStyle={rowsStyle}
         />
-      )}
+        {rows.length > 0 && (
+          <Pagination
+            locale={locale}
+            page={page}
+            size={size}
+            pages={pages}
+            rowsLength={rows.length}
+            onPageChange={handlePageChange}
+            onSizeChange={({ target: { value } }) => setSize(value)}
+          />
+        )}
+      </div>
     </div>
   );
 };
