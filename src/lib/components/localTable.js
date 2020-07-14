@@ -134,18 +134,18 @@ const LocalTable = ({
           columnsConfig={columnsConfig}
           rowsStyle={rowsStyle}
         />
-        {rows.length > 0 && (
-          <Pagination
-            locale={locale}
-            page={page}
-            size={size}
-            pages={pages}
-            rowsLength={rows.length}
-            onPageChange={handlePageChange}
-            onSizeChange={({ target: { value } }) => setSize(value)}
-          />
-        )}
       </div>
+      {rows.length > 0 && (
+        <Pagination
+          locale={locale}
+          page={page}
+          size={size}
+          pages={pages}
+          rowsLength={rows.length}
+          onPageChange={handlePageChange}
+          onSizeChange={({ target: { value } }) => setSize(value)}
+        />
+      )}
     </div>
   );
 };
