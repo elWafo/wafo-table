@@ -17,6 +17,7 @@ const DataTable = (
     rowsStyle,
     locale,
     // Local table props
+    wrapperClass,
     tableWrapperClass,
     controls, // Children to controls header
     updateTable,
@@ -83,7 +84,7 @@ const DataTable = (
   }));
 
   return (
-    <div className={`wafotable ${tableWrapperClass}`}>
+    <div className={`wafotable ${wrapperClass}`}>
       <Controls
         locale={locale}
         search={search}
@@ -94,7 +95,7 @@ const DataTable = (
       >
         {controls}
       </Controls>
-      <div className="wafotable-wrapper">
+      <div className={tableWrapperClass}>
         <Table
           columns={columns}
           rows={rows}
@@ -137,6 +138,7 @@ DataTable.propTypes = {
   rowsStyle: PropTypes.any,
   locale: PropTypes.string,
   // DataTable props
+  wrapperClass: PropTypes.string,
   tableWrapperClass: PropTypes.string,
   controls: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   updateTable: PropTypes.func,
@@ -156,6 +158,7 @@ DataTable.defaultProps = {
   rowsStyle: {},
   locale: 'en',
   // LocalTable props
+  wrapperClass: 'wafotable-wrapper ',
   tableWrapperClass: 'table-wrapper',
   controls: null,
   updateTable: null,

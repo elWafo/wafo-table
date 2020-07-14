@@ -16,6 +16,7 @@ const LocalTable = ({
   rowsStyle,
   locale,
   // Local table props
+  wrapperClass,
   tableWrapperClass,
   keepPage, // keep the current page when rows change?
   controls, // Children to controls header
@@ -114,7 +115,7 @@ const LocalTable = ({
   }
 
   return (
-    <div className={`wafotable ${tableWrapperClass}`}>
+    <div className={`wafotable ${wrapperClass}`}>
       <Controls
         locale={locale}
         search={search}
@@ -123,7 +124,7 @@ const LocalTable = ({
       >
         {controls}
       </Controls>
-      <div className="wafotable-wrapper">
+      <div className={tableWrapperClass}>
         <Table
           columns={columns}
           rows={renderRows}
@@ -166,6 +167,7 @@ LocalTable.propTypes = {
   rowsStyle: PropTypes.any,
   locale: PropTypes.string,
   // LocalTable props
+  wrapperClass: PropTypes.string,
   tableWrapperClass: PropTypes.string,
   keepPage: PropTypes.bool,
   controls: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
@@ -183,7 +185,8 @@ LocalTable.defaultProps = {
   rowsStyle: {},
   locale: 'en',
   // LocalTable props
-  tableWrapperClass: 'table-wrapper',
+  wrapperClass: 'table-wrapper',
+  tableWrapperClass: 'wafotable-wrapper',
   keepPage: false,
   controls: null,
   updateTable: f => f,
