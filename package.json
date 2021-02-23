@@ -1,5 +1,5 @@
 {
-  "name": "wafo-table",
+  "name": "@wafo/table-icdt",
   "version": "0.1.1",
   "description": "My own datatable done in React.",
   "main": "lib/index.js",
